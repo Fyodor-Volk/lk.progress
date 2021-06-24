@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Мои транспортные карты</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css\index.css">
+<!--===============================================================================================-->
+
+
+</head>
+<body>
+<div id="app">
+
+	
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="block">
+				<div class="header">
+					<div class="logo">
+						Мои транспортные карты
+					</div>
+					<div class="user">
+						<a href="Personal_data.html">
+							<span class="username">
+								{{ user[0].login }} 
+								
+									<img class="userImg" src="Дизайн\ico\Иконка профиля.png" >
+								
+							</span>
+						</a>
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"> </div>
+								<a href="login.html">
+								<button class="login100-form-btn" type="button" class="btn btn-primary" >
+									Выйти
+								</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="main">
+				
+					<div class="oneCard" v-show="showCard" v-for="(card, index) in cards">
+						<div class="tranpCard">
+							<div class="newCard">
+							<img src="Дизайн\Транспортная карта.png" alt="">
+								
+	
+							</div>
+							<div class="infoCard" >
+								<div class="infoText" >
+									<p>Номер карты {{card.number}}</p>
+									<p>Кол-во поездок {{card.numberOfTrips}} </p>
+									<p>Тариф {{card.rate}}</p>
+									
+									
+
+									<div class="delit_button">
+										<button class="delit_card" onclick="window.location.href = 'detals.html'">
+											История поездок
+										</button>
+										<button class="delit_card" onclick="window.location.href = '#openModal3'">
+											Удалить карту
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--===Модальное окно удалить Транспортную карту==================-->
+						<div id="openModal3" class="modalDialog">
+							<div>
+								<a href="#close" title="Закрыть" class="close">x</a>
+								<form class="login100-form validate-form" onsubmit="return false">
+									<span class="login100-form-title2 p-b-49">
+										Удалить транспортную карту
+									</span>
+					
+									<div class="text_modal">
+										<p>Вы дейсвительно хотите удалить транспортную карту? </p>
+										<p>{{card.number}}</p>
+									</div>
+									<div class="reasonForDeletion">
+										<p>Укажите причину удаления транспортной карты: </p>
+										<div class="mb-3 form-check">
+											<input type="checkbox" 
+											class="form-check-input"
+											id="exampleCheck1"
+											value="" id="invalidCheck" required
+											>
+											<label class="form-check-label" for="exampleCheck1">
+													Я утерял транспортную карту и хочу ее заблокировать.
+											</label>
+										</div>
+										<div class="mb-3 form-check">
+											<input type="checkbox" 
+											class="form-check-input"
+											id="exampleCheck1"
+											value="" id="invalidCheck" required
+											>
+											<label class="form-check-label" for="exampleCheck1">
+													Я перестаю пользоваться транспортной картой.
+											</label>
+										</div>
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlTextarea1" class="form-label">Укажите другую причину</label>
+										<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+									  </div>
+									<div class="container-login100-form-btn">
+										<div class="wrap-login100-form-btn">
+											<div class="login100-form-bgbtn"></div>
+												<button class="login100-form-btn"  @click="" onclick="window.location.href = '#close'">
+													Удалить
+												</button>
+												
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<!--===Модальное окно удалить Транспортную карту==================-->
+							
+						<!--===Модальное окно История транспортной карты==================-->
+							<div id="openModalDetals" class="modalDialog">
+								<div>
+									<a href="#close" title="Закрыть" class="close">x</a>
+									<form class="login100-form validate-form" onsubmit="return false">
+										<span class="login100-form-title2 p-b-49">
+											История поездок по транспортной карты {{card.number}}
+										</span>
+										<table>
+											<tr style="background-color: aqua;">
+												<td>Дата поездки</td>
+												<td>Номер маршрута</td>
+												<td>Номер автомобиля</td>
+												<td>Номер билета</td>
+												<td>Серия билета</td>
+											</tr>
+											<tr>
+												<td>23.06.2021</td>
+												<td>1</td>
+												<td>e232ty34</td>
+												<td>{{card.ticketSeries}}</td>
+												<td>{{card.ticketNumber}}</td>
+											</tr>
+											<tr>
+												<td>23.06.2021</td>
+												<td>1</td>
+												<td>e232ty34</td>
+												<td>{{card.ticketSeries}}</td>
+												<td>{{card.ticketNumber}}</td>
+											</tr>
+										</table>
+										
+										
+									</form>
+								</div>
+							</div>
+
+
+					</div>
+	
+					
+					
+						<button class="addCard" onclick="window.location.href = '#openModal'">
+							
+							<img src="Дизайн/ico/Union.png" alt="" >
+							<span class="addCardSpan">
+								Добавить транспортную карту
+							</span>	
+						
+						</button>
+					
+					<button class="buyCard" onclick="window.location.href = '#openModal2'">
+						<img src="Дизайн/ico/12.png" alt="">
+						<span class="buyCardSpan">
+							Пополнить транспортную карту
+						</span>
+					</button>
+				</div>
+			</div>
+			
+		</div>
+	
+			
+			
+		
+			
+			
+
+			<!--===Модальное окно добавить Транспортную карту==================-->
+			
+			<div id="openModal" class="modalDialog">
+				<div>
+					<a href="#close" title="Закрыть" class="close">x</a>
+					<form class="login100-form validate-form" onsubmit="return false">
+						<span class="login100-form-title2 p-b-49">
+							Добавить транспортную карту
+						</span>
+		  
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Номер транспортной карты</span>
+							<input v-model="newCards.number" class="input100" type="text" maxlength="9"  placeholder="Номер транспортной карты" >
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Номер билета</span>
+							<input v-model="newCards.ticketNumber" class="input100" type="text" maxlength="4"  placeholder="Номер билета">
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Не введена серия билета">
+							<span class="label-input100">Cерия билета</span>
+							<input v-model="newCards.ticketSeries" class="input100" type="text"  maxlength="17"  placeholder="Cерия билета">
+							<span class="focus-input100" ></span>
+						</div>
+						
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+									<button class="login100-form-btn"  @click="addCard()" onclick="window.location.href = '#close'">
+										Добавить
+									</button>
+								
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+
+			
+			  
+			<!--===Модальное окно пополнить Транспортную карту==================-->
+			<div id="openModal2" class="modalDialog">
+				<div>
+					<a href="#close" title="Закрыть" class="close">x</a>
+					<form class="login100-form validate-form" onsubmit="return false">
+						<span class="login100-form-title2 p-b-49">
+							Пополнить транспортную карту
+						</span>
+		  
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Номер транспортной карты</span>
+							<select class="form-control" v-model="cards.number">
+								
+								<option disable value=""> </option>
+								<option v-for="(card, index) in cards"
+								v-bind:value="card">{{card.number}}</option>
+								
+							  </select>
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Номер банковской карты</span>
+							<input  class="input100" type="text" maxlength="16"  placeholder="Номер банковской карты">
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Месяц</span>
+							<input class="input100" type="text"  maxlength="2"  placeholder="MM">
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Год</span>
+							<input  class="input100" type="text"  maxlength="2"  placeholder="YY">
+							<span class="focus-input100" ></span>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Обязательное поле">
+							<span class="label-input100">Код с обратной стороны</span>
+							<input  class="input100" type="password"  maxlength="4"  placeholder="CVV">
+							<span class="focus-input100" ></span>
+						</div>
+						
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+									<button class="login100-form-btn"  @click="addCard()">
+										Пополнить
+									</button>
+								
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+
+		
+
+
+<!--Закрывается APP-->
+</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="js\vue_code.js"> </script>
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
